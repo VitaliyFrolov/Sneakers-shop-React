@@ -1,0 +1,20 @@
+{
+  "posts": [],
+  "comments": [
+    {
+      "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+      "price": 8499,
+      "imageUrl": "/img/sneakers-image/Nike Blazer Mid Suede white.jpg",
+      "id": 4
+    },
+    {
+      "title": "Мужские Кроссовки Nike Air Max 270",
+      "price": 12999,
+      "imageUrl": "/img/sneakers-image/Nike Air Max 270.jpg",
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
