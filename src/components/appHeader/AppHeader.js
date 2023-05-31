@@ -18,7 +18,7 @@ const AppHeader = (props) => {
         <div className="header__right-wrapper">
           <ul className="header__list">
             <li className="header__list-item">
-              <img src="/img/svg/Card.svg" alt="card" width={20} height={20}/>
+              <img src="/img/svg/Card.svg" alt="card" width={20} height={20} />
               <span className="header__list-price" onClick={setCartOpen}>1205 руб.</span>
             </li>
             <li className="header__list-item">
@@ -26,8 +26,10 @@ const AppHeader = (props) => {
                 <img src="/img/svg/Like.svg" alt="like" width={20} height={20} />
               </Link>
             </li>
-            <li>
-              <img src="/img/svg/Union.svg" alt="union" width={20} height={20} />
+            <li className="header__list-item">
+              <Link to={'/purchases'}>
+                <img src="/img/svg/Union.svg" alt="union" width={20} height={20} />
+              </Link>
             </li>
           </ul>
         </div>  

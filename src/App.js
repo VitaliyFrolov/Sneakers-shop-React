@@ -5,6 +5,9 @@ import AppHeader from "./components/appHeader"
 import Content from './components/content';
 import ShoppingCart from "./components/shoppingСart/ShoppingCart";
 import Favorites from "./components/favorites/Favorites";
+import Purchases from "./components/purchases";
+
+
 
 function App() {
   const [cartOpened, setCartOpen] = useState(false);
@@ -12,30 +15,40 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [items, setItems] = useState([]);
+  const [loading, setLoadind] = useState(true)
 
   useEffect(() => {
     fetch('https://6463991f127ad0b8f88c506a.mockapi.io/items')
       .then((res) => res.json())
       .then((json) => setItems(json));
-    axios.get('https://6463991f127ad0b8f88c506a.mockapi.io/cartItems')
-      .then((res) => setCartItems(res.data));
+    setLoadind(false)
     axios.get('http://localhost:3001/posts')
-      .then((res) => setFavorite(res.data)) 
+      .then((res) => setFavorite(res.data));
+    axios.get('http://localhost:3001/comments')
+      .then((res) => setCartItems(res.data));
   }, []);
 
-  const addCart = async (obj) => {
-  try {
-    if (cartItems.find((addObj) => Number(addObj.id) === Number(obj.id))) {
-      removeCart(obj.id);
-    } else {
-      await axios.post('http://localhost:3001/comments', obj);
-      setCartItems((prey) => [...prey, obj])
-    }
-  } catch (error) {
-      alert('Не удалось добавить в корзину.')
-    }
+  const cardState = (obj) => {
+    console.log(obj.cardState)
   };
 
+  const getCardState = () => {
+    return getCardState; //
+  }
+
+  const addCart = async (obj) => {
+    try {
+      if (cartItems.find((addObj) => Number(addObj.id) === Number(obj.id))) {
+        removeCart(obj.id);
+      } else {
+        await axios.post('http://localhost:3001/comments', obj);
+        setCartItems((prey) => [...prey, obj])
+      }
+    } catch (error) {
+        alert('Не удалось добавить в корзину.')
+      }
+  };
+  
   const removeCart = async (id) => {
     try {
       await axios.delete(`http://localhost:3001/comments/${id}`);
@@ -80,7 +93,10 @@ function App() {
               setFavorite={OnAddFavorite}
               favorite={favorite}
               cartOpened={cartOpened}
+              cardState={cardState}
+              getCardState={getCardState}
               cartItems={cartItems}
+              loading={loading}
             />
           }
         />
@@ -90,9 +106,19 @@ function App() {
             <Favorites
               favorite={favorite}
               setFavorite={OnAddFavorite}
+              cardState={cardState}
+              setCartItems={setCartItems}
+              addToCart={addCart}
+              favoriteState={(obj) => cardState(obj)}
             />
           }
         />
+        <Route
+          path='/purchases'
+          element={
+            <Purchases/>
+          }
+        />  
       </Routes>
       {cartOpened && (
         <ShoppingCart

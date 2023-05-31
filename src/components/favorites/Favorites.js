@@ -4,10 +4,19 @@ import Card from "../card/Card";
 import './favorites.modules.scss';
 
 const Favorites = (props) => {
-    const {favorite, setFavorite} = props;
+    const {favorite, setFavorite, cardState, addCart, favoriteState} = props;
     const addToFavorite = (obj) => {
         setFavorite(obj)
-      }
+    };
+
+    const onAddState = (obj) => {
+        cardState(obj)
+    };
+    
+    const addToCart = (obj) => {
+        addCart(obj)
+    };
+    
         return (
             <section className="favorites">
                 <div className="favorites__header">
@@ -28,6 +37,9 @@ const Favorites = (props) => {
                                 key={index}
                                 id={obj.id}
                                 onFavorite={(obj) => addToFavorite(obj)}
+                                stateCard={(obj) => onAddState(obj)}
+                                onAdd={(obj) => addToCart(obj)}
+                                // favoriteState={(obj) => favoriteState(obj.favorite)}
                             />
                         ))) : (
                                 <div className="favorites__content-message">
